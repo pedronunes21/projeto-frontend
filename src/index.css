@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: "Poppins";
+  color: #35363a;
+}
+
+@layer base {
+  input {
+    @apply px-[20px] py-[8px] w-full max-w-[350px] outline-none border border-black/20 rounded-[4px];
+  }
+
+  h1 {
+    @apply text-[24px] font-[700] text-black;
+  }
+
+  .subtitle {
+    @apply text-[14px] leading-5 block text-black/60;
+  }
+
+  .button {
+    @apply bg-purple w-full max-w-[350px] rounded-[4px] h-[40px] text-white hover:bg-purpleHover flex items-center justify-center ease-in duration-100;
+  }
+
+  .error {
+    @apply text-[12px] w-full max-w-[350px] text-[#cc0000];
+  }
+}
