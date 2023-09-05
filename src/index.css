@@ -8,28 +8,52 @@
 
 html,
 body {
-  font-family: "Poppins";
+  font-family: "Rubik";
+  font-weight: 400;
   color: #35363a;
 }
 
+/* @font-face {
+  font-family: "Rubik";
+  font-weight: 700;
+  src:
+    url("../fonts/Rubik-Bold.ttf") format("truetype"),
+} */
+
 @layer base {
   input {
-    @apply px-[20px] py-[8px] w-full max-w-[350px] outline-none border border-black/20 rounded-[4px];
+    @apply text-[12px] px-[16px] py-[8px] w-full max-w-[350px] outline-none border border-black/10 rounded-[4px] font-semibold text-grey font-raleway;
+  }
+
+  input {
+    @apply text-[12px] px-[16px] py-[8px] w-full max-w-[350px] outline-none border border-black/10 rounded-[4px] font-semibold text-grey font-raleway;
   }
 
   h1 {
-    @apply text-[24px] font-[700] text-black;
+    @apply text-[28px] font-bold text-black text-center font-rubik;
+  }
+
+  h2 {
+    @apply text-[18px] font-raleway font-semibold text-black text-left;
+  }
+
+  h3 {
+    @apply text-[14px] font-raleway font-semibold text-black text-left;
   }
 
   .subtitle {
-    @apply text-[14px] leading-5 block text-black/60;
+    @apply text-[11px] leading-3 block text-black text-right font-normal;
   }
 
   .button {
-    @apply bg-purple w-full max-w-[350px] rounded-[4px] h-[40px] text-white hover:bg-purpleHover flex items-center justify-center ease-in duration-100;
+    @apply bg-orange w-full max-w-[350px] rounded-[4px] h-[40px] text-white hover:bg-blue flex items-center justify-center ease-in duration-100 font-raleway;
   }
 
   .error {
     @apply text-[12px] w-full max-w-[350px] text-[#cc0000];
+  }
+
+  .pumpi {
+    @apply text-orange text-[64px] font-rubik font-bold mt-[-520px] ml-[30px];
   }
 }

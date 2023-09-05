@@ -5,7 +5,9 @@ import ButtonLoading from "../components/ButtonLoading";
 import { ToastContainer, toast } from 'react-toastify';
 
 type Inputs = {
+    name: string;
     email: string;
+    date: Date;
     password: string;
     confirmPassword: string;
 };
@@ -25,7 +27,9 @@ export default function Register() {
         setLoading(true);
         try {
             await api.post("/register", {
+                name: data.name,
                 email: data.email,
+                date: data.date,
                 password: data.password
             })
             toast("Usuário criado com sucesso!", {
@@ -45,31 +49,45 @@ export default function Register() {
     };
 
     return (
-        <div className="flex items-center justify-center bg-purple min-h-screen py-[50px]">
+        <div className="flex items-center justify-center bg-orangeBackGround min-h-screen py-[50px]">
             <ToastContainer />
-
-            <div className="flex flex-col items-center justify-center px-[20px] py-[75px] bg-white w-full max-w-[500px] rounded-[10px]">
-                <div className="max-w-[350px] w-full pb-[20px]">
-                    <h1>Criar uma conta</h1>
-                    <span className="subtitle">Preencha os campos abaixo para criar uma conta.</span>
+            <div className="pumpi">PUMPI</div>
+            <img src="./images/rafiki.png" alt="Homem Agachando" className="mt-[80px] mb-[-30px] ml-[-5px] w-[400px] h-[460px]"/>
+            <div className="flex flex-col items-center justify-center mt-[-40px] mb-[-40px] px-[30px] py-[45px] bg-white w-full max-w-[500px] rounded-[25px] shadow-md ml-auto mr-[100px]">
+                <div className="max-w-[350px] w-full pb-[15px]">
+                    <h1>Seja bem-vindo(a)!</h1>
+                    <span className="subtitle max-w-[310px]">Preencha com suas informações para criar uma conta.</span>
                 </div>
-                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center justify-center gap-[20px] w-full">
+                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center justify-center gap-[10px] w-full">
                     <div className="w-full max-w-[350px]">
-                        <input className={`${errors.email && "border-[#cc0000]"}`} {...register("email", { required: true })} type="text" placeholder="Email" />
+                        <h3>Nome:</h3>
+                        <input className={`${errors.email && "border-[#cc0000]"}`} {...register("name", { required: true })} type="text" placeholder="Seu nome" />
+                        <span className="error">{errors.email && "Campo nome é obrigatório!"}</span>
+                    </div>
+                    <div className="w-full max-w-[350px]">
+                        <h3>Email:</h3>
+                        <input className={`${errors.email && "border-[#cc0000]"}`} {...register("email", { required: true })} type="text" placeholder="Seu email" />
                         <span className="error">{errors.email && "Campo email é obrigatório!"}</span>
                     </div>
                     <div className="w-full max-w-[350px]">
-                        <input className={`${errors.email && "border-[#cc0000]"}`} {...register("password", { required: true })} type="password" placeholder="Senha" />
+                        <h3>Data de nascimento:</h3>
+                        <input className={`${errors.email && "border-[#cc0000]"}`} {...register("date", { required: true })} type="date" placeholder="Sua data de nascimento" />
+                        <span className="error">{errors.email && "Campo data de nascimento é obrigatório!"}</span>
+                    </div>
+                    <div className="w-full max-w-[350px]">
+                        <h3>Senha:</h3>
+                        <input className={`${errors.email && "border-[#cc0000]"}`} {...register("password", { required: true })} type="password" placeholder="Sua senha" />
                         <span className="error">{errors.password && "Campo senha é obrigatório!"}</span>
                     </div>
                     <div className="w-full max-w-[350px]">
-                        <input className={`${errors.email && "border-[#cc0000]"}`} {...register("confirmPassword", { required: true })} type="password" placeholder="Confirmar senha" />
+                        <h3>Confirmar senha:</h3>
+                        <input className={`${errors.email && "border-[#cc0000]"}`} {...register("confirmPassword", { required: true })} type="password" placeholder="Confirme sua senha" />
                         <span className="error">{errors.confirmPassword && "Campo confirmar senha é obrigatório!"}</span>
                     </div>
                     {resError && <span className="error">{resError}</span>}
-                    <button disabled={loading} className="button" type="submit">{loading ? <ButtonLoading /> : "Registrar"}</button>
+                    <button disabled={loading} className="button mt-[8px]" type="submit">{loading ? <ButtonLoading /> : "Registrar"}</button>
                 </form>
-                <span className="text-[12px] pt-[10px]">Já possui uma conta? Entre <a className="text-purple font-bold" href="/login">aqui</a></span>
+                <span className="text-[13px] pt-[10px]">Já possui uma conta? Entre <a className="text-blue font-raleway font-bold hover:text-orange" href="/login">aqui</a></span>
             </div>
         </div>
     )
