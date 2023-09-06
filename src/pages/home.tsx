@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import api from '../service/api';
-import ScreenLoading from '../components/ScreenLoading';
+import { ScreenLoading } from '../components/loading';
 import { BiSolidUserCircle } from 'react-icons/bi'
 import { TbLogout } from 'react-icons/tb'
 

@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import api from "../service/api";
-import ButtonLoading from "../components/ButtonLoading";
+import { ButtonLoading } from "../components/loading";
 import { ToastContainer, toast } from 'react-toastify';
 import Cookies from 'js-cookie';
-import axios from "axios";
+import Layout from "../components/layout";
+import { errorHandler } from "../utils/errorHandler";
 
 type Inputs = {
     email: string;
@@ -30,17 +31,18 @@ export default function Login() {
                 }
             })
             console.log(res.data)
-            // const token = res.data.data.token;
-            // Cookies.set("token", token);
-            // toast("Logado com sucesso!", {
-            //     type: "success",
-            // })
-            // setTimeout(() => {
-            //     location.assign("/")
-            // }, 3000);
-            // setResError("");
-            // reset();
+            setResError("");
+            reset();
+            const token = res.data.access_token;
+            Cookies.set("token", token);
+            toast("Bem vindo de volta! Você será redirecionado.", {
+                type: "success",
+            })
+            setTimeout(() => {
+                location.assign("/treinos")
+            }, 2500);
         } catch (err: any) {
+            setResError(errorHandler(err.response.data.message))
             console.log(err.response.data)
         } finally {
             setLoading(false);
@@ -48,34 +50,42 @@ export default function Login() {
 
     };
 
+    useEffect(() => {
+        if (!!Cookies.get("token"))
+            window.location.replace("/treinos")
+    }, [])
+
     return (
-        <div className="flex items-center justify-center bg-orangeBackGround min-h-screen">
-            <ToastContainer />
-            <div className="pumpi absolute top-[20px] left-[20px]">PUMPI</div>
-            <div className="w-[50%]">
-            <img src="./images/amico.png" alt="Mulher Fazendo Exercicio" className="w-full h-full" />
-            </div>
-            <div className="flex flex-col items-center shadow-md py-[40px] bg-white w-full max-w-[400px] rounded-[25px] ml-auto mr-[145px] px-[20px]">
-                <div className="max-w-[330px] w-[360px] pb-[23px]">
-                    <h1>Bem-vindo(a) de volta!</h1>
-                    <span className="subtitle max-w-[310px]">Preencha as informações para acessar sua conta.</span>
+        <Layout>
+            <div className="flex items-center justify-center px-[20px] h-screen">
+                <ToastContainer />
+                <div className="flex items-center justify-center md:justify-between w-full max-w-[1024px] gap-[20px]">
+                    <div className="max-w-[450px] hidden md:block">
+                        <img src="./images/amico.png" alt="Mulher Fazendo Exercicio" className="w-full h-full" />
+                    </div>
+                    <div className="flex flex-col items-center shadow-md py-[40px] bg-white w-full max-w-[400px] rounded-[25px] px-[20px] gap-[20px]">
+                        <div className="w-full flex flex-col items-start">
+                            <h1 className="text-left leading-[110%]">Bem-vindo(a) de volta!</h1>
+                            <span className="subtitle">Preencha as informações para acessar sua conta.</span>
+                        </div>
+                        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center justify-center gap-[20px] w-full">
+                            <div className="w-full max-w-[350px]">
+                                <h2>Email:</h2>
+                                <input className={`${errors.email && "border-[#cc0000]"}`} {...register("email", { required: true })} type="text" placeholder="Digite seu email" />
+                                <span className="error">{errors.email && "Campo email é obrigatório!"}</span>
+                            </div>
+                            <div className="w-full max-w-[350px]">
+                                <h2>Senha:</h2>
+                                <input className={`${errors.email && "border-[#cc0000]"}`} {...register("password", { required: true })} type="password" placeholder="Digite sua senha" />
+                                <span className="error">{errors.password && "Campo senha é obrigatório!"}</span>
+                            </div>
+                            {resError && <span className="error">{resError}</span>}
+                            <button disabled={loading} className="button" type="submit">{loading ? <ButtonLoading /> : "Entrar"}</button>
+                        </form>
+                        <span className="w-full text-[14px] items-left justify-left font-normal">Ainda não possui uma conta? Registre-se <a className="text-blue font-bold" href="/registro">aqui</a></span>
+                    </div>
                 </div>
-                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center justify-center gap-[20px] w-full">
-                    <div className="w-full max-w-[350px]">
-                        <h2>Email:</h2>
-                        <input className={`${errors.email && "border-[#cc0000]"}`} {...register("email", { required: true })} type="text" placeholder="Digite seu email" />
-                        <span className="error">{errors.email && "Campo email é obrigatório!"}</span>
-                    </div>
-                    <div className="w-full max-w-[350px]">
-                        <h2>Senha:</h2>
-                        <input className={`${errors.email && "border-[#cc0000]"}`} {...register("password", { required: true })} type="password" placeholder="Digite sua senha" />
-                        <span className="error">{errors.password && "Campo senha é obrigatório!"}</span>
-                    </div>
-                    {resError && <span className="error">{resError}</span>}
-                    <button disabled={loading} className="button" type="submit">{loading ? <ButtonLoading /> : "Entrar"}</button>
-                </form>
-                <span className="max-w-[348px] w-full text-[14px] pt-[8px] items-left justify-left font-raleway font-extralight">Ainda não possui uma conta? Registre-se <a className="text-blue font-raleway font-bold hover:text-orange" href="/register">aqui</a></span>
             </div>
-        </div>
+        </Layout>
     )
 }

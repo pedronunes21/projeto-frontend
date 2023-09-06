@@ -8,9 +8,10 @@
 
 html,
 body {
-  font-family: "Rubik";
+  font-family: "Raleway";
   font-weight: 400;
   color: #35363a;
+  background: #FFEBD3
 }
 
 /* @font-face {
@@ -22,11 +23,7 @@ body {
 
 @layer base {
   input {
-    @apply text-[12px] px-[16px] py-[8px] w-full max-w-[350px] outline-none border border-black/10 rounded-[4px] font-semibold text-grey font-raleway;
-  }
-
-  input {
-    @apply text-[12px] px-[16px] py-[8px] w-full max-w-[350px] outline-none border border-black/10 rounded-[4px] font-semibold text-grey font-raleway;
+    @apply text-[14px] px-[10px] h-[45px] w-full max-w-[350px] outline-none border border-black/20 rounded-[4px] font-semibold text-black font-raleway;
   }
 
   h1 {
@@ -42,15 +39,15 @@ body {
   }
 
   .subtitle {
-    @apply text-[11px] leading-3 block text-black text-right font-normal;
+    @apply text-[14px] leading-[110%] block text-black font-normal;
   }
 
   .button {
-    @apply bg-orange w-full max-w-[350px] rounded-[4px] h-[40px] text-white hover:bg-blue flex items-center justify-center ease-in duration-100 font-raleway;
+    @apply bg-orange hover:bg-darkOrange w-full max-w-[350px] rounded-[4px] h-[45px] text-white flex items-center justify-center ease-in duration-200 font-bold;
   }
 
   .error {
-    @apply text-[12px] w-full max-w-[350px] text-[#cc0000];
+    @apply text-[14px] w-full max-w-[350px] text-[#cc0000];
   }
 
   .pumpi {

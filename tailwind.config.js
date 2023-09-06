@@ -4,7 +4,7 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
     "./src/*.{js,ts,jsx,tsx}",
-    
+
   ],
   theme: {
     extend: {
@@ -17,7 +17,8 @@ export default {
         white: "#F9FDFF",
         green: "#74F018",
         darkOrange: "#E37C00",
-        grey: "#D7D7D7"
+        grey: "#D7D7D7",
+        gold: "#945000"
       },
       fontFamily: {
         'rubik': ['Rubik'],
