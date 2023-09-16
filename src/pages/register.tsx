@@ -55,8 +55,8 @@ export default function Register() {
             <div className="flex items-center justify-center px-[20px] min-h-screen pt-[60px]">
                 <ToastContainer />
                 <ToastContainer />
-                <div className="flex items-center justify-center md:justify-between w-full max-w-[1024px] gap-[20px]">
-                    <div className="w-[30%] max-w-[450px] hidden md:block">
+                <div className="flex items-center justify-center md:justify-between w-full max-w-[1024px] gap-[80px]">
+                    <div className="w-[50%] max-w-[450px] hidden md:block">
                         <img src="./images/rafiki.png" alt="Homem Agachando" className="w-full h-full" />
                     </div>
                     <div className="flex flex-col items-center shadow-md py-[40px] bg-white w-full max-w-[400px] sm:max-w-[750px] rounded-[25px] px-[20px] gap-[20px]">
