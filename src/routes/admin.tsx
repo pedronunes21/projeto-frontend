@@ -5,7 +5,7 @@ import { ScreenLoading } from '../components/loading';
 import { ErrorPage } from '../components/error';
 import api from '../service/api';
 
-const PrivateRoute = ({ component, path }: {
+const AdminRoute = ({ component, path }: {
     component: () => JSX.Element;
     path: string
 }) => {
@@ -13,7 +13,7 @@ const PrivateRoute = ({ component, path }: {
 
     const validateUser = async () => {
         try {
-            await api.get("/auth/token", {
+            await api.get("/auth/admin", {
                 headers: {
                     Authorization: `Bearer ${Cookies.get("token")}`
                 }
@@ -36,4 +36,4 @@ const PrivateRoute = ({ component, path }: {
     return <Route component={element} path={path} exact />
 }
 
-export default PrivateRoute;
+export default AdminRoute;
