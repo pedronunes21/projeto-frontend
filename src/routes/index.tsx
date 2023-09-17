@@ -7,6 +7,7 @@ import Profiles from '../pages/profile/profile';
 import PrivateRoute from './private';
 import AdminRoute from './admin';
 import AdminCreateTraining from '../pages/admin/adminCreateTraining';
+import AdminEditTraining from '../pages/admin/adminEditTraining';
 
 const Router = () => {
     return (
@@ -20,6 +21,7 @@ const Router = () => {
                 {/* <PrivateRoute element={GenerateCustomersPdf} path="/report" /> */}
 
                 <AdminRoute component={AdminCreateTraining} path='/admin/treinos/criar' />
+                <AdminRoute component={AdminEditTraining} path='/admin/treinos/editar/:id' />
 
                 <Route render={() => <Redirect to="/entrar" />} />
             </Switch>

@@ -4,33 +4,45 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import api from "../../service/api";
 import { toast } from "react-toastify";
 import { ButtonLoading } from "../../components/loading";
-import { TrainingCategory } from "../../types/Training";
-import { getTrainingCategories } from "../../utils/training";
+import { Training, TrainingCategory } from "../../types/Training";
+import { getTraining, getTrainingCategories } from "../../utils/training";
 import Cookies from "js-cookie";
+import { useParams } from "react-router-dom";
 
 interface Inputs {
     description: string;
     categoryId: string;
 }
 
-const AdminCreateTraining = () => {
+const AdminEditTraining = () => {
 
     const [loading, setLoading] = useState(false);
     const [formError] = useState("");
     const [categories, setCategories] = useState<TrainingCategory[]>([])
+    const [training, setTraining] = useState<Training>()
+
+    const params: { id: string } = useParams()
 
     useEffect(() => {
+        getTraining(params.id, setTraining)
         getTrainingCategories(setCategories)
     }, [])
+
+    useEffect(() => {
+        reset({
+            description: training?.description,
+            categoryId: training?.category.id
+        })
+    }, [training])
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm<Inputs>();
 
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
         setLoading(true);
         const { description, categoryId } = data;
-        console.log(data)
+
         try {
-            const res = await api.post("/training", {
+            const res = await api.put(`/training/${params.id}`, {
                 description,
                 categoryId
             }, {
@@ -63,21 +75,18 @@ const AdminCreateTraining = () => {
             <div className="flex items-center justify-center min-h-[calc(100vh-70px)]">
                 <div className="flex flex-col items-center shadow-md py-[40px] bg-white w-full max-w-[400px] rounded-[25px] px-[20px] gap-[20px]">
                     <div className="w-full flex flex-col items-start">
-                        <h1 className="text-left leading-[110%]">Criar Treino</h1>
-                        <span className="subtitle">Preencha os campos abaixo para criar um treino</span>
+                        <h1 className="text-left leading-[110%]">Editar Treino</h1>
+                        <span className="subtitle">Edite os campos abaixo para atualizar o treino</span>
                     </div>
                     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-[20px] mt-[20px] items-center justify-center w-full">
 
                         <div className='w-full max-w-[450px]'>
-                            <select defaultValue="" className="input" {...register("categoryId", {
-                                required: true
-                            })}>
-                                <option value="">Selecione uma categoria</option>
+                            <select className="input" {...register("categoryId", { required: true })}>
                                 {categories.map((c, i) => (
                                     <option key={i} value={c.id}>{c.name}</option>
                                 ))}
                             </select>
-                            {errors.categoryId && <span className="error">Você deve selecionar uma categoria</span>}
+                            {errors.description && <span className="error">Campo descrição é obrigatório!</span>}
                         </div>
 
                         <div className='w-full max-w-[450px]'>
@@ -102,4 +111,4 @@ const AdminCreateTraining = () => {
     )
 }
 
-export default AdminCreateTraining
+export default AdminEditTraining

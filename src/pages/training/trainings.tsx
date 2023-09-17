@@ -1,36 +1,21 @@
 import { useContext, useEffect, useState } from "react";
 import Layout from "../../components/layout";
-import api from "../../service/api";
-import Cookies from "js-cookie";
 import { Training } from "../../types/Training";
 import { AdminContext } from "../../context/admin";
 import AddButton from "../../components/addButton";
 import EditButton from "../../components/editButton";
+import { getTrainings } from "../../utils/training";
 
 const Trainigns = () => {
     const [trainings, setTrainings] = useState<Training[]>([]);
     const isAdmin = useContext(AdminContext)
     useEffect(() => {
-        getTrainings()
+        getTrainings(setTrainings)
     }, [])
-
-    const getTrainings = async () => {
-        try {
-            const res = await api.get("/training", {
-                headers: {
-                    Authorization: `Bearer ${Cookies.get("token")}`
-                }
-            })
-            setTrainings(res.data);
-            console.log(res.data);
-        } catch (err) {
-            console.log(err)
-        }
-    }
 
     return (
         <Layout>
-            <div className="pt-[60px] px-[20px]">
+            <div>
                 <div className=" py-[40px] px-[100px] flex items-center justify-between">
                     <div>
                         <h1 className="flex items-left px-[10px] ">Treinos</h1>

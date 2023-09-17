@@ -42,7 +42,7 @@ const Lessons = () => {
 
     return (
         <Layout>
-            <div className="pt-[60px] px-[20px]">
+            <div>
                 <div className=" py-[40px] px-[100px] flex items-center justify-between">
                     <div>
                         <h1 className="flex items-left px-[10px] ">Aulas do Dia</h1>

@@ -28,10 +28,13 @@ const Profiles = () => {
 
     return (
         <Layout>
-            <div className="pt-[60px] px-[20px]">
-                <h1>Perfil</h1>
-                <div>
-                    <button onClick={logout}>Sair</button>
+            <div>
+                <div className=" py-[40px] px-[100px] flex flex-col items-start">
+                    <h1>Perfil</h1>
+                    <h3>Edite suas informações abaixo</h3>
+                    <div>
+                        <button onClick={logout}>Sair</button>
+                    </div>
                 </div>
 
             </div>

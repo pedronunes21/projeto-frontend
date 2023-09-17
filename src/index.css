@@ -22,8 +22,12 @@ body {
 } */
 
 @layer base {
-  input {
-    @apply text-[14px] px-[10px] h-[45px] w-full max-w-[350px] outline-none border border-black/20 rounded-[4px] font-semibold text-black font-raleway;
+  input, textarea {
+    @apply text-[14px] p-[10px] h-[45px] w-full max-w-[350px] outline-none border border-black/20 rounded-[4px] font-semibold text-black font-raleway placeholder:text-[15px] placeholder:text-[rgba(0,0,0,.6)];
+  }
+
+  .input {
+    @apply text-[14px] p-[10px] h-[45px] w-full max-w-[350px] outline-none border border-black/20 rounded-[4px] font-semibold text-black font-raleway placeholder:text-[15px] placeholder:text-[rgba(0,0,0,.6)];
   }
 
   h1 {

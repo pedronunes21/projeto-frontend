@@ -4,7 +4,10 @@ const Layout = ({ children }: { children: JSX.Element }) => {
     return (
         <div>
             <Header />
-            {children}
+            <div className="pt-[60px] px-[20px]">
+                {children}
+
+            </div>
         </div>
     )
 }

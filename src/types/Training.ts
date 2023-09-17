@@ -2,10 +2,10 @@
 export interface Training {
     id: string;
     description: string;
-    category: Category;
+    category: TrainingCategory;
 }
 
-interface Category {
+export interface TrainingCategory {
     id: string;
     name: string;
 }
