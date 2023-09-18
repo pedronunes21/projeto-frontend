@@ -8,6 +8,8 @@ import PrivateRoute from './private';
 import AdminRoute from './admin';
 import AdminCreateTraining from '../pages/admin/adminCreateTraining';
 import AdminEditTraining from '../pages/admin/adminEditTraining';
+import AdminCreateLesson from '../pages/admin/adminCreateLesson';
+import AdminEditLesson from '../pages/admin/adminEditLesson';
 
 const Router = () => {
     return (
@@ -22,6 +24,9 @@ const Router = () => {
 
                 <AdminRoute component={AdminCreateTraining} path='/admin/treinos/criar' />
                 <AdminRoute component={AdminEditTraining} path='/admin/treinos/editar/:id' />
+
+                <AdminRoute component={AdminCreateLesson} path='/admin/aulas/criar' />
+                <AdminRoute component={AdminEditLesson} path='/admin/aulas/editar/:id' />
 
                 <Route render={() => <Redirect to="/entrar" />} />
             </Switch>

@@ -15,8 +15,8 @@ const Trainigns = () => {
 
     return (
         <Layout>
-            <div>
-                <div className=" py-[40px] px-[100px] flex items-center justify-between">
+            <div className="px-[20px]">
+                <div className=" py-[40px] flex items-center justify-between">
                     <div>
                         <h1 className="flex items-left px-[10px] ">Treinos</h1>
                         <h3 className="px-[11px] ">Lista completa de todos os treinos da academia</h3>
@@ -29,7 +29,7 @@ const Trainigns = () => {
                     {trainings.map((t, i) => (
                         <div key={i} className="bg-[rgba(200,165,125,.5)] p-[20px] rounded-[5px] max-w-[350px] w-full">
                             <div className="flex justify-between items-center gap-[20px] py-[10px]">
-                                <span className="bg-orangeBackGround text-black px-[20px] py-[5px] rounded-full font-bold">{t.category.name}</span>
+                                <span className="bg-orangeBackGround text-black px-[20px] py-[5px] rounded-full font-bold">{t.category}</span>
                                 {isAdmin && <div>
                                     <EditButton link={`/admin/treinos/editar/${t.id}`} />
                                 </div>}
