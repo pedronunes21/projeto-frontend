@@ -57,4 +57,16 @@ body {
   .pumpi {
     @apply text-orange text-[64px] font-rubik font-bold mt-[-520px] ml-[30px];
   }
+
+  th,td {
+    @apply border border-orange text-left pl-[10px] py-[5px];
+  }
+  
+  th {
+    @apply bg-orange text-white border-orangeBackGround;
+  }
+
+  table {
+    @apply w-full;
+  }
 }

@@ -7,6 +7,8 @@ export interface Appointment {
     user?: {
         id: string;
         email: string;
+        name: string;
     }
     userId: string;
+    createdAt: Date;
 }

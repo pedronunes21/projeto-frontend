@@ -5,6 +5,10 @@ import { AdminContext } from "../../context/admin";
 import AddButton from "../../components/addButton";
 import EditButton from "../../components/editButton";
 import { getTrainings } from "../../utils/training";
+import { FaTrash } from "react-icons/fa";
+import api from "@/service/api";
+import Cookies from "js-cookie";
+import { ToastContainer, toast } from "react-toastify";
 
 const Trainigns = () => {
     const [trainings, setTrainings] = useState<Training[]>([]);
@@ -12,10 +16,33 @@ const Trainigns = () => {
     useEffect(() => {
         getTrainings(setTrainings)
     }, [])
+    async function deleteTraining(trainingId: string) {
+        try {
+            await api.delete(`/training/${trainingId}`, {
+                headers: {
+                    Authorization: `Bearer ${Cookies.get("token")}`
+                }
+            })
+
+            toast("Treino removido com sucesso!", {
+                position: "bottom-right",
+                type: "success"
+            })
+            setTimeout(() => {
+                location.reload()
+            }, 1000)
+        } catch (err: any) {
+            toast(err.response.data.message, {
+                position: "bottom-right",
+                type: "error"
+            })
+        }
+    }
 
     return (
         <Layout>
             <div className="px-[20px]">
+                <ToastContainer />
                 <div className=" py-[40px] flex items-center justify-between">
                     <div>
                         <h1 className="flex items-left px-[10px] ">Treinos</h1>
@@ -25,17 +52,18 @@ const Trainigns = () => {
                         <AddButton link="/admin/treinos/criar" />
                     </div>}
                 </div>
-                <div className="flex gap-[20px] flex-wrap items-stretch justify-center py-[50px]">
+                <div className="flex gap-[20px] flex-wrap items-stretch justify-start py-[50px]">
                     {trainings.map((t, i) => (
-                        <div key={i} className="bg-[rgba(200,165,125,.5)] p-[20px] rounded-[5px] max-w-[350px] w-full">
+                        <div key={i} className="bg-white shadow-lg px-[20px] pb-[30px] py-[15px] rounded-[5px] max-w-[350px] w-full">
                             <div className="flex justify-between items-center gap-[20px] py-[10px]">
-                                <span className="bg-orangeBackGround text-black px-[20px] py-[5px] rounded-full font-bold">{t.category}</span>
-                                {isAdmin && <div>
+                                <span className="text-black py-[5px] rounded-full font-bold">{t.category}</span>
+                                {isAdmin && <div className="flex items-center gap-[10px]">
                                     <EditButton link={`/admin/treinos/editar/${t.id}`} />
+                                    <button onClick={() => deleteTraining(t.id)}><FaTrash color="red" size={15} /></button>
                                 </div>}
                             </div>
                             <div>
-                                <p className="font-medium text-white">{t.description}</p>
+                                <p className="font-medium text-black">{t.description}</p>
                             </div>
                         </div>
                     ))}

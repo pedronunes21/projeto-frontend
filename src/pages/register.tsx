@@ -1,22 +1,34 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import api from "../service/api";
 import { ButtonLoading } from "../components/loading";
 import { ToastContainer, toast } from 'react-toastify';
 import Layout from "../components/layout";
+import useQuery from "@/utils/useQuery";
 
 type Inputs = {
     name: string;
     email: string;
-    date: Date;
+    birthDate: Date;
     password: string;
     confirmPassword: string;
 };
 
 export default function Register() {
-
     const [resError, setResError] = useState("");
     const [loading, setLoading] = useState(false);
+
+    const query = useQuery()
+    const invite = query.get("invite")
+
+    useEffect(() => {
+        if (!invite) {
+            toast.error("Você deve informar um link de convite!")
+            setTimeout(() => {
+                location.assign("/entrar")
+            }, 1500)
+        }
+    }, [])
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm<Inputs>();
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
@@ -24,13 +36,13 @@ export default function Register() {
             setResError("As senhas devem ser iguais!");
             return;
         }
-
+        console.log(data);
         setLoading(true);
         try {
-            await api.post("/register", {
+            await api.post(`/user?invite=${invite}`, {
                 name: data.name,
                 email: data.email,
-                date: data.date,
+                birthDate: data.birthDate,
                 password: data.password
             })
             toast("Usuário criado com sucesso!", {
@@ -38,7 +50,7 @@ export default function Register() {
             })
             setTimeout(() => {
                 location.assign("/login")
-            }, 3000);
+            }, 1500);
             setResError("");
             reset();
         } catch (err: any) {
@@ -54,7 +66,6 @@ export default function Register() {
         <Layout>
             <div className="flex items-center justify-center px-[20px] min-h-screen pt-[60px]">
                 <ToastContainer />
-                <ToastContainer />
                 <div className="flex items-center justify-center md:justify-between w-full max-w-[1024px] gap-[80px]">
                     <div className="w-[50%] max-w-[450px] hidden md:block">
                         <img src="./images/rafiki.png" alt="Homem Agachando" className="w-full h-full" />
@@ -68,29 +79,29 @@ export default function Register() {
                             <div className="flex flex-col w-full gap-[20px] items-center justify-between">
                                 <div className="w-full max-w-[350px]">
                                     <h3>Nome:</h3>
-                                    <input className={`${errors.email && "border-[#cc0000]"}`} {...register("name", { required: true })} type="text" placeholder="Seu nome" />
-                                    <span className="error">{errors.email && "Campo nome é obrigatório!"}</span>
+                                    <input className={`${errors.name && "border-[#cc0000]"}`} {...register("name", { required: true })} type="text" placeholder="Seu nome" />
+                                    <span className="error">{errors.name && "Campo nome é obrigatório!"}</span>
                                 </div>
                                 <div className="w-full max-w-[350px]">
                                     <h3>Email:</h3>
-                                    <input className={`${errors.email && "border-[#cc0000]"}`} {...register("email", { required: true })} type="text" placeholder="Seu email" />
+                                    <input className={`${errors.email && "border-[#cc0000]"}`} {...register("email", { required: true })} type="email" placeholder="Seu email" />
                                     <span className="error">{errors.email && "Campo email é obrigatório!"}</span>
                                 </div>
                                 <div className="w-full max-w-[350px]">
                                     <h3>Data de nascimento:</h3>
-                                    <input className={`${errors.email && "border-[#cc0000]"}`} {...register("date", { required: true })} type="date" placeholder="Sua data de nascimento" />
-                                    <span className="error">{errors.email && "Campo data de nascimento é obrigatório!"}</span>
+                                    <input className={`${errors.birthDate && "border-[#cc0000]"}`} {...register("birthDate", { required: true })} type="date" placeholder="Sua data de nascimento" />
+                                    <span className="error">{errors.birthDate && "Campo data de nascimento é obrigatório!"}</span>
                                 </div>
                             </div>
                             <div className="flex flex-col w-full gap-[20px] items-center justify-between">
                                 <div className="w-full max-w-[350px]">
                                     <h3>Senha:</h3>
-                                    <input className={`${errors.email && "border-[#cc0000]"}`} {...register("password", { required: true })} type="password" placeholder="Sua senha" />
+                                    <input className={`${errors.password && "border-[#cc0000]"}`} {...register("password", { required: true })} type="password" placeholder="Sua senha" />
                                     <span className="error">{errors.password && "Campo senha é obrigatório!"}</span>
                                 </div>
                                 <div className="w-full max-w-[350px]">
                                     <h3>Confirmar senha:</h3>
-                                    <input className={`${errors.email && "border-[#cc0000]"}`} {...register("confirmPassword", { required: true })} type="password" placeholder="Confirme sua senha" />
+                                    <input className={`${errors.confirmPassword && "border-[#cc0000]"}`} {...register("confirmPassword", { required: true })} type="password" placeholder="Confirme sua senha" />
                                     <span className="error">{errors.confirmPassword && "Campo confirmar senha é obrigatório!"}</span>
                                 </div>
                                 {resError && <span className="error">{resError}</span>}
