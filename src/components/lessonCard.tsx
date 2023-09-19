@@ -127,7 +127,6 @@ export default function LessonCard(props: {
                 <span className="text-[14px]">Participar da aula:</span>
                 <div className="text-[20px] flex items-center">
                     <span>{lessonAppointments.length}</span>
-                    {console.log(props.appointment)}
                     <button onClick={!!props.appointment ? () => unscheduleLesson(props.lesson.id) : () => scheduleLesson(props.lesson.id)} className={`p-[10px] rounded-full ${!!props.appointment ? "bg-green" : lessonAppointments.length >= props.lesson.max_users ? "bg-orange" : "bg-blue"} mx-[5px]`}>
                         {loading ? <ButtonLoading /> : !!props.appointment ? <FaCheck color="white" size={20} /> : <FaPlus color="white" size={20} />}
                     </button>
