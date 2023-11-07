@@ -67,8 +67,8 @@ const AdminCreateTraining = () => {
 
                             <input {...register("category", {
                                 required: true
-                            })} className={`input h-auto ${errors.description && "input-error"}`} placeholder="Categoria" />
-                            {errors.description && <span className="error">Campo categoria é obrigatório!</span>}
+                            })} className={`input h-auto ${errors.description && "input-error"}`} placeholder="Título" />
+                            {errors.description && <span className="error">Campo título é obrigatório!</span>}
 
                         </div>
                         <div className='w-full max-w-[450px]'>

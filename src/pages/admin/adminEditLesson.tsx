@@ -154,7 +154,7 @@ const AdminEditLesson = () => {
 
                         <div className='w-full max-w-[450px]'>
                             <button disabled={loading} className='w-full bg-orange h-[45px] flex items-center justify-center rounded-[3px] font-bold text-white'>
-                                {loading ? <ButtonLoading /> : "Editar"}
+                                {loading ? <ButtonLoading /> : "Salvar"}
                             </button>
                         </div>
                     </form>

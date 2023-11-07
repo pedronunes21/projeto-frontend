@@ -10,10 +10,13 @@ import { Appointment } from "@/types/Appointment"
 import { FaCheck, FaPlus, FaTrash, FaUserFriends } from "react-icons/fa"
 import { getAppointmentByLesson } from "@/utils/appointment"
 import { Popover, PopoverContent, PopoverTrigger } from "@radix-ui/react-popover"
+import { minutesToHour } from "@/utils/lesson"
+import { ConfirmationPopover } from "./confirmationPopover"
 
 export default function LessonCard(props: {
     lesson: Lesson,
-    appointment: Appointment | undefined
+    appointment: Appointment | undefined,
+    showTime?: boolean,
 }) {
     const isAdmin = useContext(AdminContext)
 
@@ -108,11 +111,13 @@ export default function LessonCard(props: {
         <div className="relative bg-white shadow-lg px-[20px] py-[30px] rounded-[5px] max-w-[350px] w-full">
             <ToastContainer />
             <div className="pb-[20px]">
+                {props.showTime && <span>{minutesToHour(props.lesson.time)}</span>}
                 <div className="flex items-center justify-between">
                     <h2>{props.lesson.title}</h2>
                     {isAdmin && <div className="flex items-center gap-[10px]">
                         <EditButton link={`/admin/aulas/editar/${props.lesson.id}`} />
-                        <button onClick={() => deleteLesson(props.lesson.id)}><FaTrash color="red" size={15} /></button>
+                        {/* <button onClick={() => deleteLesson(props.lesson.id)}><FaTrash color="red" size={15} /></button> */}
+                        <ConfirmationPopover message="Tem certeza que deseja excluir essa aula?" action={() => deleteLesson(props.lesson.id)} />
                     </div>}
                 </div>
                 <div className="flex gap-[20px] py-[10px]">
@@ -123,12 +128,12 @@ export default function LessonCard(props: {
                 </div>
 
             </div>
-            <div className="absolute left-[50%] translate-x-[-50%] top-[90%] flex items-center -justify-center flex-col">
-                <span className="text-[14px]">Participar da aula:</span>
+            <div className="absolute left-[50%] translate-x-[-50%] top-[calc(100%-40px)] flex items-center -justify-center flex-col">
+                <span className="text-[14px]">{!!props.appointment ? "Presença confirmada" : "Participar da aula:"}</span>
                 <div className="text-[20px] flex items-center">
                     <span>{lessonAppointments.length}</span>
                     <button onClick={!!props.appointment ? () => unscheduleLesson(props.lesson.id) : () => scheduleLesson(props.lesson.id)} className={`p-[10px] rounded-full ${!!props.appointment ? "bg-green" : lessonAppointments.length >= props.lesson.max_users ? "bg-orange" : "bg-blue"} mx-[5px]`}>
-                        {loading ? <ButtonLoading /> : !!props.appointment ? <FaCheck color="white" size={20} /> : <FaPlus color="white" size={20} />}
+                        {loading ? <ButtonLoading /> : <FaCheck color="white" size={20} />}
                     </button>
                     <span className="font-bold">{props.lesson.max_users}</span></div>
             </div>

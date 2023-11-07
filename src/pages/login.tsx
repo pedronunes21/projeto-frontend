@@ -57,7 +57,7 @@ export default function Login() {
 
     return (
         <Layout>
-            <div className="flex items-center justify-center px-[20px] h-screen">
+            <div className="flex items-center justify-center px-[20px] h-[calc(100vh-60px)]">
                 <ToastContainer />
                 <div className="flex items-center justify-center md:justify-between w-full max-w-[1024px] gap-[20px]">
                     <div className="max-w-[450px] hidden md:block">
@@ -82,7 +82,6 @@ export default function Login() {
                             {resError && <span className="error">{resError}</span>}
                             <button disabled={loading} className="button" type="submit">{loading ? <ButtonLoading /> : "Entrar"}</button>
                         </form>
-                        <span className="w-full text-[14px] items-left justify-left font-normal">Ainda não possui uma conta? Registre-se <a className="text-blue font-bold" href="/registro">aqui</a></span>
                     </div>
                 </div>
             </div>
