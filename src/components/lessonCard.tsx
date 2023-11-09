@@ -138,7 +138,7 @@ export default function LessonCard(props: {
                     <span className="font-bold">{props.lesson.max_users}</span></div>
             </div>
             <div className="absolute right-[20px] bottom-[20px] z-50">
-                <Popover>
+                {isAdmin ? <a href={`/admin/aulas/alunos/${props.lesson.id}`}><FaUserFriends size={20} /></a> : <Popover>
                     <PopoverTrigger><FaUserFriends size={20} /></PopoverTrigger>
                     <PopoverContent className="bg-white px-[10px] py-[5px] rounded-[10px] min-w-[200px]">
                         <span className="block mb-[20px]">Participantes</span>
@@ -147,7 +147,7 @@ export default function LessonCard(props: {
                         ))}
 
                     </PopoverContent>
-                </Popover>
+                </Popover>}
             </div>
         </div>
     )

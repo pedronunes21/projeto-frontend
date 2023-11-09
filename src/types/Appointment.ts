@@ -10,5 +10,7 @@ export interface Appointment {
         name: string;
     }
     userId: string;
+    done: boolean;
+    presence: boolean;
     createdAt: Date;
 }

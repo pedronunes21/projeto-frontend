@@ -10,6 +10,7 @@ import AdminCreateTraining from '../pages/admin/adminCreateTraining';
 import AdminEditTraining from '../pages/admin/adminEditTraining';
 import AdminCreateLesson from '../pages/admin/adminCreateLesson';
 import AdminEditLesson from '../pages/admin/adminEditLesson';
+import AdminListLessonUsers from '@/pages/admin/adminListLessonUsers';
 
 const Router = () => {
     return (
@@ -26,6 +27,7 @@ const Router = () => {
                 <AdminRoute component={AdminEditTraining} path='/admin/treinos/editar/:id' />
 
                 <AdminRoute component={AdminCreateLesson} path='/admin/aulas/criar' />
+                <AdminRoute component={AdminListLessonUsers} path='/admin/aulas/alunos/:id' />
                 <AdminRoute component={AdminEditLesson} path='/admin/aulas/editar/:id' />
 
                 <Route render={() => <Redirect to="/entrar" />} />

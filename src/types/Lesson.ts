@@ -1,3 +1,4 @@
+import { Appointment } from "./Appointment";
 import { Training } from "./Training";
 
 export interface Lesson {
@@ -7,4 +8,5 @@ export interface Lesson {
     title: string;
     max_users: number;
     training: Training;
+    appointment: Appointment[]
 }
