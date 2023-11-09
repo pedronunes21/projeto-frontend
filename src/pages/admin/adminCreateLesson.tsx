@@ -86,6 +86,7 @@ const AdminCreateLesson = () => {
                     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-[20px] mt-[20px] items-center justify-center w-full">
 
                         <div className='w-full max-w-[450px]'>
+                            <label>Escolha um treino:</label>
                             <select {...register("trainingId", {
                                 required: true
                             })} className={`input h-auto ${errors.trainingId && "input-error"}`} placeholder="Treino" >
@@ -97,6 +98,7 @@ const AdminCreateLesson = () => {
                             {errors.trainingId && <span className="error">Campo treino é obrigatório!</span>}
                         </div>
                         <div className='w-full max-w-[450px]'>
+                            <label>Dia da semana:</label>
                             <select {...register("weekday", {
                                 required: true
                             })} className={`input h-auto ${errors.weekday && "input-error"}`} placeholder="Treino" >
@@ -112,6 +114,7 @@ const AdminCreateLesson = () => {
                             {errors.weekday && <span className="error">Campo dia da semana é obrigatório!</span>}
                         </div>
                         <div className='w-full max-w-[450px]'>
+                            <label>Título:</label>
                             <input {...register("title", {
                                 required: true
                             })} className={`h-auto ${errors.title && "input-error"}`} placeholder="Título da Aula" />
@@ -119,6 +122,7 @@ const AdminCreateLesson = () => {
                         </div>
 
                         <div className='w-full max-w-[450px]'>
+                            <label>Horário:</label>
                             <input {...register("time", {
                                 required: true
                             })} type="time" className={`h-auto ${errors.time && "input-error"}`} placeholder="Horário da Aula" />
@@ -126,6 +130,7 @@ const AdminCreateLesson = () => {
                         </div>
 
                         <div className='w-full max-w-[450px]'>
+                            <label>Tamanho da turma:</label>
                             <input {...register("max_users", {
                                 required: true
                             })} type="number" min="1" className={`h-auto ${errors.max_users && "input-error"}`} placeholder="Máximo de pessoas que podem participar" />

@@ -54,7 +54,7 @@ body {
   }
 
   .input {
-    @apply text-[14px] p-[10px] h-[45px] w-full max-w-[350px] outline-none border border-black/20 rounded-[4px] font-semibold text-black font-raleway placeholder:text-[15px] placeholder:text-[rgba(0,0,0,.6)];
+    @apply text-[14px] p-[10px] h-[45px] w-full max-w-[350px] outline-none border border-black/20 rounded-[4px] font-semibold text-black font-raleway placeholder:text-[15px] placeholder:text-[rgba(0,0,0,.3)];
   }
 
   h1 {
@@ -95,5 +95,9 @@ body {
 
   table {
     @apply w-full;
+  }
+
+  label {
+    @apply font-raleway text-[16px] font-semibold text-black;
   }
 }

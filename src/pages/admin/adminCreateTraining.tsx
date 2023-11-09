@@ -64,7 +64,7 @@ const AdminCreateTraining = () => {
 
                         <div className='w-full max-w-[450px]'>
 
-
+                            <label>Título do treino:</label>
                             <input {...register("category", {
                                 required: true
                             })} className={`input h-auto ${errors.description && "input-error"}`} placeholder="Título" />
@@ -72,6 +72,7 @@ const AdminCreateTraining = () => {
 
                         </div>
                         <div className='w-full max-w-[450px]'>
+                            <label>Descrição do treino:</label>
                             <textarea {...register("description", {
                                 required: true
                             })} className={`input h-auto ${errors.description && "input-error"}`} placeholder="Descrição do Treino" rows={7} />

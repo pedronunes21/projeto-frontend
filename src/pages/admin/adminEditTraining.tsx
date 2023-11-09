@@ -80,13 +80,15 @@ const AdminEditTraining = () => {
                     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-[20px] mt-[20px] items-center justify-center w-full">
 
                         <div className='w-full max-w-[450px]'>
+                            <label>Título do treino:</label>
                             <input {...register("category", {
                                 required: true
-                            })} className={`input h-auto ${errors.category && "input-error"}`} placeholder="Categoria" />
-                            {errors.category && <span className="error">Campo categoria é obrigatório!</span>}
+                            })} className={`input h-auto ${errors.category && "input-error"}`} placeholder="Título" />
+                            {errors.category && <span className="error">Campo título é obrigatório!</span>}
                         </div>
 
                         <div className='w-full max-w-[450px]'>
+                            <label>Descrição do treino:</label>
                             <textarea {...register("description", {
                                 required: true
                             })} className={`input h-auto ${errors.description && "input-error"}`} placeholder="Descrição do Treino" rows={7} />

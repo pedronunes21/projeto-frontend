@@ -28,10 +28,10 @@ O URL para o backend fica na pasta `src/service/api.ts`. Quando iniciar o backen
 [] Fazer vídeo tutorial de como usar o sistema
 [] Adicionar calendário para ver as aulas que não são do dia de hoje
 [] Transformar itens em carrousel
-[] Mudar ícone de fazer check-in
+[x] Mudar ícone de fazer check-in
 [] Página de controle do admin, para ver quem está inscrito em cada aula, além de poder marcar presença dos alunos
 [] Adicionar label em cada input
 [] Quando um usuário efetuar “check in” em uma aula, desabilitar o “check in” nas demais, que conflitem o horário.
-[] Trocar o ícone de mais pelo check
+[x] Trocar o ícone de mais pelo check
 
 
