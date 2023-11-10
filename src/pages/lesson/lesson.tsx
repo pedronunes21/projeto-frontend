@@ -11,6 +11,7 @@ import { ToastContainer } from 'react-toastify'
 import { getAppointments } from "../../utils/appointment";
 import { Appointment } from "../../types/Appointment";
 import LessonCard from "@/components/lessonCard";
+import ReportButton from "@/components/reportButton";
 
 const WeekdayMap = {
     0: "Domingo",
@@ -78,14 +79,16 @@ const Lessons = () => {
         <Layout>
             <div className="px-[20px]">
                 <ToastContainer />
-                <div className=" py-[40px] flex items-center justify-between">
+                <div className=" py-[40px] flex items-start justify-between">
                     <div>
                         <h1 className="flex items-left px-[10px] ">Aulas do Dia</h1>
                         <h3 className="px-[11px] ">As aulas de hoje</h3>
                     </div>
-                    {isAdmin && <div>
-                        <AddButton link="/admin/aulas/criar" />
-                    </div>}
+                    {isAdmin &&
+                        <div className="flex flex-col gap-[10px]">
+                            <AddButton link="/admin/aulas/criar" />
+                            <ReportButton link="/admin/aulas/relatorios" />
+                        </div>}
                 </div>
                 <div className="flex gap-[20px] flex-col py-[50px] px-[10px]">
                     {!isAdmin ?

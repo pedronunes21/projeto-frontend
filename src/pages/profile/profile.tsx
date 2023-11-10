@@ -139,8 +139,8 @@ const Profiles = () => {
                             <h3>Lista dos seus agendamentos</h3>
                         </div>
                     </div>
-                    <div className="px-[10px] py-[20px]">
-                        <table>
+                    <div className="px-[10px] py-[20px] pb-[50px]">
+                        {appointments.length > 0 ? <table>
                             <thead>
                                 <tr>
                                     <th>Título</th>
@@ -167,7 +167,7 @@ const Profiles = () => {
                                 })}
 
                             </tbody>
-                        </table>
+                        </table> : <span className="text-[14px] block text-center">Você ainda não participou de nenhuma aula!</span>}
 
                     </div>
                 </div>
