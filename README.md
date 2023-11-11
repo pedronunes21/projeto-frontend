@@ -27,8 +27,6 @@ O URL para o backend fica na pasta `src/service/api.ts`. Quando iniciar o backen
 [] Poder marcar presença em qualquer aula da semana
 [] Fazer uma agenda da semana para o aluno
 [] Transformar itens em carrousel
-[] Gerar relatório de presença por aluno e por aula (falta colocar presença do aluno na tabela)
-[] Quando um usuário efetuar “check in” em uma aula, desabilitar o “check in” nas demais, que conflitem o horário.
 
 [] Cadastrar dados reais no sistema
 [] Fazer vídeo tutorial de como usar o sistema
@@ -39,5 +37,7 @@ O URL para o backend fica na pasta `src/service/api.ts`. Quando iniciar o backen
 [x] Página de controle do admin, para ver quem está inscrito em cada aula, além de poder marcar presença dos alunos.
 [x] Adicionar campo de presença no agendamento (boolean), default false, professor marca se aluno participou da aula
 [x] Adicionar calendário onde admin pode verificar todas as aulas e quais alunos participaram da aula (histórico de participações em aulas)
+[x] Gerar relatório de presença por aluno e por aula (falta colocar presença do aluno na tabela)
+[x] Quando um usuário efetuar “check in” em uma aula, desabilitar o “check in” nas demais, que conflitem o horário.
 
 

@@ -9,6 +9,7 @@ import { FaTrash } from "react-icons/fa";
 import api from "@/service/api";
 import Cookies from "js-cookie";
 import { ToastContainer, toast } from "react-toastify";
+import { ConfirmationPopover } from "@/components/confirmationPopover";
 
 const Trainigns = () => {
     const [trainings, setTrainings] = useState<Training[]>([]);
@@ -59,7 +60,7 @@ const Trainigns = () => {
                                 <span className="text-black py-[5px] rounded-full font-bold">{t.category}</span>
                                 {isAdmin && <div className="flex items-center gap-[10px]">
                                     <EditButton link={`/admin/treinos/editar/${t.id}`} />
-                                    <button onClick={() => deleteTraining(t.id)}><FaTrash color="red" size={15} /></button>
+                                    <ConfirmationPopover message="Tem certeza que deseja excluir esse treino?" action={() => deleteTraining(t.id)} />
                                 </div>}
                             </div>
                             <div>

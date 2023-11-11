@@ -7,7 +7,7 @@ import api from "@/service/api"
 import Cookies from "js-cookie"
 import { toast, ToastContainer } from 'react-toastify'
 import { Appointment } from "@/types/Appointment"
-import { FaCheck, FaPlus, FaTrash, FaUserFriends } from "react-icons/fa"
+import { FaCheck, FaPlus, FaTrash, FaUserFriends, FaCross } from "react-icons/fa"
 import { getAppointmentByLesson } from "@/utils/appointment"
 import { Popover, PopoverContent, PopoverTrigger } from "@radix-ui/react-popover"
 import { minutesToHour } from "@/utils/lesson"
@@ -16,6 +16,7 @@ import { ConfirmationPopover } from "./confirmationPopover"
 export default function LessonCard(props: {
     lesson: Lesson,
     appointment: Appointment | undefined,
+    appointments: Appointment[] | undefined,
     showTime?: boolean,
 }) {
     const isAdmin = useContext(AdminContext)
@@ -107,6 +108,8 @@ export default function LessonCard(props: {
         }
     }
 
+    const timeConflict = props.appointments?.find((a) => a.lesson?.time === props.lesson.time && a.lesson.weekday === props.lesson.weekday && a.lesson.id !== props.lesson.id)
+
     return (
         <div className="relative bg-white shadow-lg px-[20px] py-[30px] rounded-[5px] max-w-[350px] w-full">
             <ToastContainer />
@@ -129,14 +132,43 @@ export default function LessonCard(props: {
 
             </div>
             <div className="absolute left-[50%] translate-x-[-50%] top-[calc(100%-40px)] flex items-center -justify-center flex-col">
-                <span className="text-[14px]">{!!props.appointment ? "Presença confirmada" : "Participar da aula:"}</span>
+                <span className="text-[14px] text-center">
+                    {!!props.appointment ?
+                        "Presença confirmada" :
+                        timeConflict ?
+                            "Horário ocupado" :
+                            "Participar da aula:"}
+                </span>
                 <div className="text-[20px] flex items-center">
                     <span>{lessonAppointments.length}</span>
-                    <button onClick={!!props.appointment ? () => unscheduleLesson(props.lesson.id) : () => scheduleLesson(props.lesson.id)} className={`p-[10px] rounded-full ${!!props.appointment ? "bg-green" : lessonAppointments.length >= props.lesson.max_users ? "bg-orange" : "bg-blue"} mx-[5px]`}>
-                        {loading ? <ButtonLoading /> : <FaCheck color="white" size={20} />}
+                    <button
+                        onClick={!!props.appointment ?
+                            () => unscheduleLesson(props.lesson.id) :
+                            timeConflict ?
+                                () => { } :
+                                () => scheduleLesson(props.lesson.id)
+                        }
+                        className={`p-[10px] rounded-full 
+                        ${!!props.appointment ?
+                                "bg-green" :
+                                timeConflict ?
+                                    "bg-red-700" :
+                                    lessonAppointments.length >= props.lesson.max_users ?
+                                        "bg-orange" :
+                                        "bg-blue"
+                            } mx-[5px]`}
+                    >
+                        {loading ?
+                            <ButtonLoading /> :
+                            timeConflict ?
+                                <FaPlus className="rotate-45" color="white" size={20} /> :
+                                <FaCheck color="white" size={20} />
+                        }
                     </button>
+
                     <span className="font-bold">{props.lesson.max_users}</span></div>
             </div>
+
             <div className="absolute right-[20px] bottom-[20px] z-50">
                 {isAdmin ? <a href={`/admin/aulas/alunos/${props.lesson.id}`}><FaUserFriends size={20} /></a> : <Popover>
                     <PopoverTrigger><FaUserFriends size={20} /></PopoverTrigger>

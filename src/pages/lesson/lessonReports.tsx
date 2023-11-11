@@ -118,6 +118,7 @@ export default function LessonReports() {
                                                     <th>Título</th>
                                                     <th>Categoria</th>
                                                     <th>Horário</th>
+                                                    <th>Participou</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -133,6 +134,7 @@ export default function LessonReports() {
                                                             <td>{a.lesson?.title}</td>
                                                             <td>{a.lesson?.training.category}</td>
                                                             <td>{minutesToHour(a.lesson?.time!)}</td>
+                                                            <td>{a.presence ? "Sim" : "Não"}</td>
                                                         </tr>
                                                     )
                                                 })}
@@ -140,6 +142,7 @@ export default function LessonReports() {
                                             </tbody>
                                         </table>
                                     </div> :
+                                    userName !== undefined &&
                                     <div>
                                         <span className='block text-center text-[14px]'>Esse aluno não possui nenhuma atividade!</span>
                                     </div>

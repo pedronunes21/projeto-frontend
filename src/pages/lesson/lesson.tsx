@@ -63,7 +63,6 @@ const Lessons = () => {
                 }
             })
             setLessons(res.data)
-            console.log(res.data)
             // const schedules: number[] = []
             // res.data.forEach((v: Lesson) => {
             //     if (!schedules.find((s) => s === v.time)) schedules.push(v.time)
@@ -100,9 +99,11 @@ const Lessons = () => {
                                     <div className="flex flex-wrap gap-x-[20px] gap-y-[30px] justify-start pl-[20px] pt-[20px] pb-[40px]">
                                         {lessons.filter((l) => l.time === ls).map((l, j) => {
                                             const appointment = appointments.find((a) => a.lessonId === l.id)
+                                            const appointmentsNotDone = appointments.filter((a) => !a.done)
                                             return <LessonCard
                                                 lesson={l}
                                                 appointment={appointment}
+                                                appointments={appointmentsNotDone}
                                                 key={j}
                                             />
                                         })}
@@ -121,10 +122,12 @@ const Lessons = () => {
                                         <div className="flex flex-wrap gap-x-[20px] gap-y-[30px]  justify-start pl-[20px] pt-[20px] pb-[40px]">
                                             {ls.map((l, j) => {
                                                 const appointment = appointments.find((a) => a.lessonId === l.id)
+                                                const appointmentsNotDone = appointments.filter((a) => !a.done)
                                                 return <LessonCard
                                                     showTime={true}
                                                     lesson={l}
                                                     appointment={appointment}
+                                                    appointments={appointmentsNotDone}
                                                     key={j}
                                                 />
                                             })}
