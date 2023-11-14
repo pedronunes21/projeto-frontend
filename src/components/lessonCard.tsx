@@ -18,6 +18,7 @@ export default function LessonCard(props: {
     appointment: Appointment | undefined,
     appointments: Appointment[] | undefined,
     showTime?: boolean,
+    disabled?: boolean,
 }) {
     const isAdmin = useContext(AdminContext)
 
@@ -112,7 +113,7 @@ export default function LessonCard(props: {
 
     return (
         <div className="relative bg-white shadow-lg px-[20px] py-[30px] rounded-[5px] max-w-[350px] w-full">
-            <ToastContainer />
+            {/* <ToastContainer /> */}
             <div className="pb-[20px]">
                 {props.showTime && <span>{minutesToHour(props.lesson.time)}</span>}
                 <div className="flex items-center justify-between">
@@ -131,7 +132,7 @@ export default function LessonCard(props: {
                 </div>
 
             </div>
-            <div className="absolute left-[50%] translate-x-[-50%] top-[calc(100%-40px)] flex items-center -justify-center flex-col">
+            {!props.disabled && <div className="absolute left-[50%] translate-x-[-50%] top-[calc(100%-40px)] flex items-center -justify-center flex-col">
                 <span className="text-[14px] text-center">
                     {!!props.appointment ?
                         "Presença confirmada" :
@@ -152,7 +153,7 @@ export default function LessonCard(props: {
                         ${!!props.appointment ?
                                 "bg-green" :
                                 timeConflict ?
-                                    "bg-red-700" :
+                                    "bg-gray-300" :
                                     lessonAppointments.length >= props.lesson.max_users ?
                                         "bg-orange" :
                                         "bg-blue"
@@ -167,7 +168,7 @@ export default function LessonCard(props: {
                     </button>
 
                     <span className="font-bold">{props.lesson.max_users}</span></div>
-            </div>
+            </div>}
 
             <div className="absolute right-[20px] bottom-[20px] z-50">
                 {isAdmin ? <a href={`/admin/aulas/alunos/${props.lesson.id}`}><FaUserFriends size={20} /></a> : <Popover>

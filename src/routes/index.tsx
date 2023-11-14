@@ -12,6 +12,7 @@ import AdminCreateLesson from '../pages/admin/adminCreateLesson';
 import AdminEditLesson from '../pages/admin/adminEditLesson';
 import AdminListLessonUsers from '@/pages/admin/adminListLessonUsers';
 import LessonReports from '@/pages/lesson/lessonReports';
+import LessonsCalendar from '@/pages/lesson/lessonCalendar';
 
 const Router = () => {
     return (
@@ -21,8 +22,8 @@ const Router = () => {
                 <Route component={Register} path="/registro" exact />
                 <PrivateRoute component={Trainigns} path="/treinos" />
                 <PrivateRoute component={Lessons} path="/aulas" />
+                <PrivateRoute component={LessonsCalendar} path="/calendario/aulas" />
                 <PrivateRoute component={Profiles} path="/perfil" />
-                {/* <PrivateRoute element={GenerateCustomersPdf} path="/report" /> */}
 
                 <AdminRoute component={AdminCreateTraining} path='/admin/treinos/criar' />
                 <AdminRoute component={AdminEditTraining} path='/admin/treinos/editar/:id' />

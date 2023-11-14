@@ -12,6 +12,8 @@ import { getAppointments } from "../../utils/appointment";
 import { Appointment } from "../../types/Appointment";
 import LessonCard from "@/components/lessonCard";
 import ReportButton from "@/components/reportButton";
+import CalendarButton from "@/components/calendarButton";
+import EmblaCarousel from "@/components/embla/carousel";
 
 const WeekdayMap = {
     0: "Domingo",
@@ -83,33 +85,52 @@ const Lessons = () => {
                         <h1 className="flex items-left px-[10px] ">Aulas do Dia</h1>
                         <h3 className="px-[11px] ">As aulas de hoje</h3>
                     </div>
-                    {isAdmin &&
+                    {isAdmin ?
                         <div className="flex flex-col gap-[10px]">
                             <AddButton link="/admin/aulas/criar" />
                             <ReportButton link="/admin/aulas/relatorios" />
-                        </div>}
+                        </div> :
+                        <div className="flex flex-col gap-[10px]">
+                            <CalendarButton link="/calendario/aulas" />
+                        </div>
+                    }
                 </div>
-                <div className="flex gap-[20px] flex-col py-[50px] px-[10px]">
+                <div className="">
                     {!isAdmin ?
 
                         <>
-                            {lessonsSchedule.map((ls, i) => (
-                                <div key={i}>
-                                    <h2 className="text-[22px] font-bold">{minutesToHour(ls)}</h2>
-                                    <div className="flex flex-wrap gap-x-[20px] gap-y-[30px] justify-start pl-[20px] pt-[20px] pb-[40px]">
-                                        {lessons.filter((l) => l.time === ls).map((l, j) => {
-                                            const appointment = appointments.find((a) => a.lessonId === l.id)
-                                            const appointmentsNotDone = appointments.filter((a) => !a.done)
-                                            return <LessonCard
-                                                lesson={l}
-                                                appointment={appointment}
-                                                appointments={appointmentsNotDone}
-                                                key={j}
-                                            />
-                                        })}
+                            {lessonsSchedule.length > 0 ?
+                                lessonsSchedule.map((ls, i) => (
+                                    <div key={i}>
+                                        <h2 className="text-[22px] font-bold">{minutesToHour(ls)}</h2>
+                                        <div className="w-full">
+                                            <EmblaCarousel
+                                                options={{
+                                                    loop: true,
+                                                    slidesToScroll: 1
+                                                }}
+                                                className='pt-[80px] pb-[80px] w-full'
+                                            >
+                                                {lessons.filter((l) => l.time === ls).map((l, j) => {
+                                                    const appointment = appointments.find((a) => a.lessonId === l.id)
+                                                    const appointmentsNotDone = appointments.filter((a) => !a.done)
+                                                    return <div className="embla__slide max-w-[350px] mx-[10px]">
+                                                        <LessonCard
+                                                            lesson={l}
+                                                            appointment={appointment}
+                                                            appointments={appointmentsNotDone}
+                                                            key={j}
+                                                        />
+                                                    </div>
+                                                })}
+                                            </EmblaCarousel>
+                                        </div>
                                     </div>
+                                )) :
+                                <div className="flex justify-center w-full">
+                                    <span className="font-rubik">Nenhuma aula para hoje :(</span>
                                 </div>
-                            ))}
+                            }
                         </> :
 
                         <>
@@ -119,7 +140,33 @@ const Lessons = () => {
                                 return (
                                     <div key={i}>
                                         <h2 className="text-[22px] font-bold">{WeekdayMap[w]}</h2>
-                                        <div className="flex flex-wrap gap-x-[20px] gap-y-[30px]  justify-start pl-[20px] pt-[20px] pb-[40px]">
+                                        <div className="w-full">
+                                            <EmblaCarousel
+                                                options={{
+                                                    loop: true,
+                                                    slidesToScroll: 1
+                                                }}
+                                                className='pt-[80px] pb-[80px] w-full'
+                                            >
+                                                {ls.map((l, j) => {
+                                                    const appointment = appointments.find((a) => a.lessonId === l.id)
+                                                    const appointmentsNotDone = appointments.filter((a) => !a.done)
+                                                    let date = new Date()
+
+                                                    return <div className="embla__slide max-w-[350px] mx-[10px]">
+                                                        <LessonCard
+                                                            showTime={true}
+                                                            lesson={l}
+                                                            appointment={appointment}
+                                                            appointments={appointmentsNotDone}
+                                                            key={j}
+                                                            disabled={l.weekday < date.getDay() || (l.weekday == date.getDay() && l.time < date.getHours() * 60 + date.getMinutes())}
+                                                        />
+                                                    </div>
+                                                })}
+                                            </EmblaCarousel>
+                                        </div>
+                                        {/* <div className="flex flex-wrap gap-x-[20px] gap-y-[30px]  justify-start pl-[20px] pt-[20px] pb-[40px]">
                                             {ls.map((l, j) => {
                                                 const appointment = appointments.find((a) => a.lessonId === l.id)
                                                 const appointmentsNotDone = appointments.filter((a) => !a.done)
@@ -131,7 +178,7 @@ const Lessons = () => {
                                                     key={j}
                                                 />
                                             })}
-                                        </div>
+                                        </div> */}
                                     </div>
                                 )
                             })}

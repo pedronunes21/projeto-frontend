@@ -23,13 +23,11 @@ O URL para o backend fica na pasta `src/service/api.ts`. Quando iniciar o backen
 
 ## TO-DO
 [] Criar um Help de Contexto ( pra cada seção aparecer uma ajuda de como usar a parte específica do sistema )
-[] Adicionar calendário para ver as aulas que não são do dia de hoje
-[] Poder marcar presença em qualquer aula da semana
 [] Fazer uma agenda da semana para o aluno
-[] Transformar itens em carrousel
 
 [] Cadastrar dados reais no sistema
 [] Fazer vídeo tutorial de como usar o sistema
+
 [x] Mudar ícone de fazer check-in
 [x] Adicionar label em cada input
 [x] Adicionar modal de confirmação para exclusão
@@ -39,5 +37,8 @@ O URL para o backend fica na pasta `src/service/api.ts`. Quando iniciar o backen
 [x] Adicionar calendário onde admin pode verificar todas as aulas e quais alunos participaram da aula (histórico de participações em aulas)
 [x] Gerar relatório de presença por aluno e por aula (falta colocar presença do aluno na tabela)
 [x] Quando um usuário efetuar “check in” em uma aula, desabilitar o “check in” nas demais, que conflitem o horário.
+[x] Adicionar calendário para ver as aulas que não são do dia de hoje
+[x] Poder marcar presença em qualquer aula da semana
+[x] Transformar itens em carrousel
 
 
