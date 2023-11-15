@@ -10,6 +10,7 @@ import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
 import { getLesson, minutesToHour } from "../../utils/lesson";
 import { Lesson } from "../../types/Lesson";
+import ContextHelper from "@/components/contextHelper";
 
 interface Inputs {
     users: { [name: string]: boolean }
@@ -79,6 +80,9 @@ const AdminListLessonUsers = () => {
         <Layout>
             <div>
                 <ToastContainer />
+                <ContextHelper
+                    adminText="Abaixo, você pode verificar todos os alunos confirmados para essa aula e marcar presença para os alunos que comparecerem."
+                />
                 {!!lesson &&
                     <div className="pb-[20px]">
                         <span>{minutesToHour(lesson.time)}</span>

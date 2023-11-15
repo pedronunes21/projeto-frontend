@@ -14,6 +14,7 @@ import LessonCard from "@/components/lessonCard";
 import ReportButton from "@/components/reportButton";
 import CalendarButton from "@/components/calendarButton";
 import EmblaCarousel from "@/components/embla/carousel";
+import ContextHelper from "@/components/contextHelper";
 
 const WeekdayMap = {
     0: "Domingo",
@@ -73,6 +74,9 @@ const LessonsCalendar = () => {
     return (
         <Layout>
             <div className="px-[20px]">
+                <ContextHelper
+                    text="Nessa página, você pode visualizar todas as aulas da semana, e inclusive marcar quais aulas deseja participar na semana."
+                />
                 <ToastContainer />
                 <div className=" py-[40px] flex items-start justify-between">
                     <div>
@@ -82,7 +86,7 @@ const LessonsCalendar = () => {
                 </div>
                 <div className="">
 
-                    {[1, 2, 3, 4, 5, 6, 0].map((w, i) => {
+                    {([1, 2, 3, 4, 5, 6, 0] as (keyof typeof WeekdayMap)[]).map((w, i) => {
                         let ls = lessons.filter((l) => l.weekday == w)
                         if (ls.length <= 0) return;
                         return (

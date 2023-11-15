@@ -113,4 +113,8 @@ body {
   label {
     @apply font-raleway text-[16px] font-semibold text-black;
   }
+
+  .hovercard-content {
+    /* @apply !text-center !w-auto relative z-[100]; */
+  }
 }

@@ -77,7 +77,7 @@ export default function InviteUser() {
 
             <div className='w-full max-w-[450px]'>
                 <button disabled={loading} className='w-full bg-orange h-[45px] flex items-center justify-center rounded-[3px] font-bold text-white'>
-                    {loading ? <ButtonLoading /> : "Criar"}
+                    {loading ? <ButtonLoading /> : "Convidar"}
                 </button>
             </div>
         </form>

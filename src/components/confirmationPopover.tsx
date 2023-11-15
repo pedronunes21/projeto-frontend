@@ -1,17 +1,31 @@
 import * as Popover from '@radix-ui/react-popover';
 import { FaTrash } from "react-icons/fa"
 
+import {
+    HoverCard,
+    HoverCardContent,
+    HoverCardTrigger,
+} from "@/src/components/ui/hover-card"
+
 export function ConfirmationPopover(props: {
     action: () => Promise<void>;
     message: string;
+    hoverCard?: string;
 }) {
 
 
     return (
         <Popover.Root>
-            <Popover.Trigger asChild>
-                <button><FaTrash color="red" size={15} /></button>
-            </Popover.Trigger>
+            <HoverCard>
+                <HoverCardTrigger>
+                    <Popover.Trigger asChild>
+                        <button><FaTrash color="red" size={15} /></button>
+                    </Popover.Trigger></HoverCardTrigger>
+                <HoverCardContent className="relative !left-[-50px]">
+                    {props.hoverCard || "Excluir"}
+                </HoverCardContent>
+            </HoverCard>
+
             <Popover.Portal>
                 <Popover.Content className="PopoverContent" sideOffset={5}>
                     <div className="grid gap-4">

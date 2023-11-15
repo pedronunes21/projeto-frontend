@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import Layout from "../../components/layout";
 import api from "../../service/api";
 import Cookies from "js-cookie";
-import { Lesson } from "../../types/Lesson";
+import { Lesson, WeekdayMap } from "../../types/Lesson";
 import { AdminContext } from "../../context/admin";
 import AddButton from "../../components/addButton";
 import { minutesToHour } from "../../utils/lesson";
@@ -15,15 +15,13 @@ import ReportButton from "@/components/reportButton";
 import CalendarButton from "@/components/calendarButton";
 import EmblaCarousel from "@/components/embla/carousel";
 
-const WeekdayMap = {
-    0: "Domingo",
-    1: "Segunda",
-    2: "Terça",
-    3: "Quarta",
-    4: "Quinta",
-    5: "Sexta",
-    6: "Sábado",
-}
+import {
+    HoverCard,
+    HoverCardContent,
+    HoverCardTrigger,
+} from "@/src/components/ui/hover-card"
+import ContextHelper from "@/components/contextHelper";
+
 
 const Lessons = () => {
     const [lessons, setLessons] = useState<Lesson[]>([]);
@@ -79,6 +77,10 @@ const Lessons = () => {
     return (
         <Layout>
             <div className="px-[20px]">
+                <ContextHelper
+                    text="Nessa página, você pode visualizar as aulas do dia. Em cada aula, você pode escolher participar clicando no botão mais a baixo da aula. Você não pode participar de duas aulas no mesmo horário. Na direita inferior, você pode verificar quem vai participar dessa aula. No botão laranja na direita superior da página, você pode verificar o cronograma da semana."
+                    adminText="Nos botões laranja na direita superior da página, você pode adicionar novas aulas e verificar relatórios dos alunos. Em cada aula, você pode editá-la clicando no ícone de lápis ou excluí-la, clicando no ícone de lixo. No botão de pessoas, você pode marcar quem participou ou não de cada aula."
+                />
                 <ToastContainer />
                 <div className=" py-[40px] flex items-start justify-between">
                     <div>
@@ -87,11 +89,29 @@ const Lessons = () => {
                     </div>
                     {isAdmin ?
                         <div className="flex flex-col gap-[10px]">
-                            <AddButton link="/admin/aulas/criar" />
-                            <ReportButton link="/admin/aulas/relatorios" />
+
+
+                            <HoverCard>
+                                <HoverCardTrigger><AddButton link="/admin/aulas/criar" /></HoverCardTrigger>
+                                <HoverCardContent className="relative !left-[-50px]">
+                                    Criar nova aula
+                                </HoverCardContent>
+                            </HoverCard>
+                            <HoverCard>
+                                <HoverCardTrigger><ReportButton link="/admin/aulas/relatorios" /></HoverCardTrigger>
+                                <HoverCardContent className="relative !left-[-50px]">
+                                    Ver relatórios
+                                </HoverCardContent>
+                            </HoverCard>
                         </div> :
                         <div className="flex flex-col gap-[10px]">
-                            <CalendarButton link="/calendario/aulas" />
+
+                            <HoverCard>
+                                <HoverCardTrigger><CalendarButton link="/calendario/aulas" /></HoverCardTrigger>
+                                <HoverCardContent className="relative !left-[-50px]">
+                                    Ver calendário da semana
+                                </HoverCardContent>
+                            </HoverCard>
                         </div>
                     }
                 </div>
@@ -114,7 +134,7 @@ const Lessons = () => {
                                                 {lessons.filter((l) => l.time === ls).map((l, j) => {
                                                     const appointment = appointments.find((a) => a.lessonId === l.id)
                                                     const appointmentsNotDone = appointments.filter((a) => !a.done)
-                                                    return <div className="embla__slide max-w-[350px] mx-[10px]">
+                                                    return <div key={j} className="embla__slide max-w-[350px] mx-[10px]">
                                                         <LessonCard
                                                             lesson={l}
                                                             appointment={appointment}
@@ -134,7 +154,7 @@ const Lessons = () => {
                         </> :
 
                         <>
-                            {[1, 2, 3, 4, 5, 6, 0].map((w, i) => {
+                            {([1, 2, 3, 4, 5, 6, 0] as (keyof typeof WeekdayMap)[]).map((w, i) => {
                                 let ls = lessons.filter((l) => l.weekday == w)
                                 if (ls.length <= 0) return;
                                 return (
@@ -153,7 +173,7 @@ const Lessons = () => {
                                                     const appointmentsNotDone = appointments.filter((a) => !a.done)
                                                     let date = new Date()
 
-                                                    return <div className="embla__slide max-w-[350px] mx-[10px]">
+                                                    return <div key={j} className="embla__slide max-w-[350px] mx-[10px]">
                                                         <LessonCard
                                                             showTime={true}
                                                             lesson={l}
@@ -166,19 +186,6 @@ const Lessons = () => {
                                                 })}
                                             </EmblaCarousel>
                                         </div>
-                                        {/* <div className="flex flex-wrap gap-x-[20px] gap-y-[30px]  justify-start pl-[20px] pt-[20px] pb-[40px]">
-                                            {ls.map((l, j) => {
-                                                const appointment = appointments.find((a) => a.lessonId === l.id)
-                                                const appointmentsNotDone = appointments.filter((a) => !a.done)
-                                                return <LessonCard
-                                                    showTime={true}
-                                                    lesson={l}
-                                                    appointment={appointment}
-                                                    appointments={appointmentsNotDone}
-                                                    key={j}
-                                                />
-                                            })}
-                                        </div> */}
                                     </div>
                                 )
                             })}

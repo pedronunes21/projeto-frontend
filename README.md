@@ -22,8 +22,6 @@ npm run dev
 O URL para o backend fica na pasta `src/service/api.ts`. Quando iniciar o backend, verifique a porta que ele será iniciado. A porta padrão é 3000.
 
 ## TO-DO
-[] Criar um Help de Contexto ( pra cada seção aparecer uma ajuda de como usar a parte específica do sistema )
-[] Fazer uma agenda da semana para o aluno
 
 [] Cadastrar dados reais no sistema
 [] Fazer vídeo tutorial de como usar o sistema
@@ -40,5 +38,6 @@ O URL para o backend fica na pasta `src/service/api.ts`. Quando iniciar o backen
 [x] Adicionar calendário para ver as aulas que não são do dia de hoje
 [x] Poder marcar presença em qualquer aula da semana
 [x] Transformar itens em carrousel
+[x] Criar um Help de Contexto ( pra cada seção aparecer uma ajuda de como usar a parte específica do sistema )
 
 

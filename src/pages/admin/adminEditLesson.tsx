@@ -10,6 +10,7 @@ import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
 import { getLesson, minutesToHour } from "../../utils/lesson";
 import { Lesson } from "../../types/Lesson";
+import ContextHelper from "@/components/contextHelper";
 
 interface Inputs {
     weekday: string | number;
@@ -96,6 +97,9 @@ const AdminEditLesson = () => {
     return (
         <Layout>
             <div className="flex items-center justify-center min-h-[calc(100vh-70px)]">
+                <ContextHelper
+                    adminText="Para editar as informações da aula, basta alterá-las no formulário abaixo e salvar."
+                />
                 <ToastContainer />
                 <div className="flex flex-col items-center shadow-md py-[40px] bg-white w-full max-w-[400px] rounded-[25px] px-[20px] gap-[20px]">
                     <div className="w-full flex flex-col items-start">

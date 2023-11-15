@@ -1,3 +1,4 @@
+import ContextHelper from '@/components/contextHelper'
 import Layout from '@/components/layout'
 import { ButtonLoading } from '@/components/loading'
 import api from '@/service/api'
@@ -12,6 +13,7 @@ import {
     SelectValue,
 } from "@/src/components/ui/select"
 import { Appointment } from '@/types/Appointment'
+import { WeekdayMap } from '@/types/Lesson'
 import { User } from '@/types/User'
 import { minutesToHour } from '@/utils/lesson'
 import Cookies from 'js-cookie'
@@ -72,6 +74,9 @@ export default function LessonReports() {
     return (
         <Layout>
             <div className="px-[20px]">
+                <ContextHelper
+                    adminText="Abaixo, você pode consultar as atividades de um aluno específico."
+                />
                 <div className=" py-[40px] flex items-start justify-between">
                     <div>
                         <h1 className="flex items-left px-[10px] ">Relatórios</h1>
@@ -116,9 +121,11 @@ export default function LessonReports() {
                                                 <tr>
                                                     <th>Realizado em</th>
                                                     <th>Título</th>
-                                                    <th>Categoria</th>
+                                                    <th>Dia</th>
                                                     <th>Horário</th>
+                                                    <th>Categoria</th>
                                                     <th>Participou</th>
+                                                    <th>Finalizado</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -132,9 +139,11 @@ export default function LessonReports() {
                                                                 year: "numeric"
                                                             })}</td>
                                                             <td>{a.lesson?.title}</td>
-                                                            <td>{a.lesson?.training.category}</td>
+                                                            <td>{WeekdayMap[a.lesson?.weekday!]}</td>
                                                             <td>{minutesToHour(a.lesson?.time!)}</td>
+                                                            <td>{a.lesson?.training.category}</td>
                                                             <td>{a.presence ? "Sim" : "Não"}</td>
+                                                            <td>{a.done ? "Sim" : "Não"}</td>
                                                         </tr>
                                                     )
                                                 })}

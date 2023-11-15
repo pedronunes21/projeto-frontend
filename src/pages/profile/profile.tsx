@@ -21,6 +21,15 @@ import { minutesToHour } from "@/utils/lesson";
 import InviteUser from "@/components/inviteUser";
 import UpdateProfile from "@/components/updateProfile";
 
+import {
+    HoverCard,
+    HoverCardContent,
+    HoverCardTrigger,
+} from "@/src/components/ui/hover-card"
+import { ConfirmationPopover } from "@/components/confirmationPopover";
+import ContextHelper from "@/components/contextHelper";
+import { WeekdayMap } from "@/types/Lesson";
+
 const Profiles = () => {
     const isAdmin = useContext(AdminContext)
     const [userInvites, setUserInvites] = useState<UserInvite[]>([]);
@@ -117,6 +126,10 @@ const Profiles = () => {
     return (
         <Layout>
             <div className="px-[20px]">
+                <ContextHelper
+                    text="Nessa página, você pode alterar suas informações no formulário abaixo, além de poder desconectar-se da sua conta e visualizar todos seus agendamentos realizados."
+                    adminText="Nessa página, você pode alterar suas informações no formulário abaixo e desconectar-se da sua conta. Pode também visualizar e excluir usuários cadastrados na academia, além de poder convidar novos usuários."
+                />
                 <ToastContainer />
                 <div>
                     <div className="py-[40px] flex items-center justify-between">
@@ -124,7 +137,13 @@ const Profiles = () => {
                             <h1>Perfil</h1>
                             <h3>Seu perfil</h3>
                         </div>
-                        <button onClick={logout}><FiLogOut size={30} color="black" /></button>
+                        <HoverCard>
+                            <HoverCardTrigger><button onClick={logout}><FiLogOut size={30} color="black" /></button></HoverCardTrigger>
+                            <HoverCardContent>
+                                Sair
+                            </HoverCardContent>
+                        </HoverCard>
+
                     </div>
 
                     <div>
@@ -140,34 +159,42 @@ const Profiles = () => {
                         </div>
                     </div>
                     <div className="px-[10px] py-[20px] pb-[50px]">
-                        {appointments.length > 0 ? <table>
-                            <thead>
-                                <tr>
-                                    <th>Título</th>
-                                    <th>Categoria</th>
-                                    <th>Horário</th>
-                                    <th>Criado em</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {appointments.map((a, i) => {
-                                    console.log(a)
-                                    return (
-                                        <tr key={i}>
-                                            <td>{a.lesson?.title}</td>
-                                            <td>{a.lesson?.training.category}</td>
-                                            <td>{minutesToHour(a.lesson?.time!)}</td>
-                                            <td>{new Date(a.createdAt).toLocaleDateString("pt-BR", {
-                                                day: "2-digit",
-                                                month: "2-digit",
-                                                year: "numeric"
-                                            })}</td>
-                                        </tr>
-                                    )
-                                })}
+                        {appointments.length > 0 ?
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Realizado em</th>
+                                        <th>Título</th>
+                                        <th>Dia</th>
+                                        <th>Horário</th>
+                                        <th>Categoria</th>
+                                        <th>Participou</th>
+                                        <th>Finalizado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {appointments.map((a, i) => {
+                                        console.log(a)
+                                        return (
+                                            <tr key={i}>
+                                                <td>{new Date(a.createdAt).toLocaleDateString("pt-BR", {
+                                                    day: "2-digit",
+                                                    month: "2-digit",
+                                                    year: "numeric"
+                                                })}</td>
+                                                <td>{a.lesson?.title}</td>
+                                                <td>{WeekdayMap[a.lesson?.weekday!]}</td>
+                                                <td>{minutesToHour(a.lesson?.time!)}</td>
+                                                <td>{a.lesson?.training.category}</td>
+                                                <td>{a.presence ? "Sim" : "Não"}</td>
+                                                <td>{a.done ? "Sim" : "Não"}</td>
+                                            </tr>
+                                        )
+                                    })}
 
-                            </tbody>
-                        </table> : <span className="text-[14px] block text-center">Você ainda não participou de nenhuma aula!</span>}
+                                </tbody>
+                            </table> :
+                            <span className="text-[14px] block text-center">Você ainda não participou de nenhuma aula!</span>}
 
                     </div>
                 </div>
@@ -199,9 +226,10 @@ const Profiles = () => {
                                             <td>{u.email}</td>
                                             <td>{parsedDate}</td>
                                             <td>
-                                                {!!me && me.id !== u.id && <button onClick={() => deleteUser(u.id)}>
-                                                    <FaTrash color="red" size={15} />
-                                                </button>}
+                                                {!!me && me.id !== u.id &&
+                                                    <ConfirmationPopover hoverCard="Excluir usuário" message="Tem certeza que deseja excluir esse usuário?" action={() => deleteUser(u.id)} />
+                                                }
+
                                             </td>
                                         </tr>
                                     )
@@ -218,7 +246,14 @@ const Profiles = () => {
                         </div>
                         <div>
                             <Popover>
-                                <PopoverTrigger><AddButton /></PopoverTrigger>
+                                <PopoverTrigger>
+                                    <HoverCard>
+                                        <HoverCardTrigger><AddButton /></HoverCardTrigger>
+                                        <HoverCardContent>
+                                            Convidar usuário
+                                        </HoverCardContent>
+                                    </HoverCard>
+                                </PopoverTrigger>
                                 <PopoverContent className="mr-[50px]">
                                     <InviteUser />
                                 </PopoverContent>
@@ -229,7 +264,7 @@ const Profiles = () => {
                         {userInvites.map((u, i) => (
                             <div className="border-b border-orange p-[10px] flex justify-between" key={i}>
                                 <span>{u.invite}</span>
-                                <button onClick={() => deleteUserInvite(u.id)}><FaTrash color="red" size={15} /></button>
+                                <ConfirmationPopover hoverCard="Excluir convite" action={() => deleteUserInvite(u.id)} message="Tem certeza que deseja excluir esse convite?" />
                             </div>
                         ))}
                     </div>

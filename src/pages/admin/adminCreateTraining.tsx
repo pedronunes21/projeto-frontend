@@ -5,6 +5,7 @@ import api from "../../service/api";
 import { toast, ToastContainer } from "react-toastify";
 import { ButtonLoading } from "../../components/loading";
 import Cookies from "js-cookie";
+import ContextHelper from "@/components/contextHelper";
 
 interface Inputs {
     description: string;
@@ -54,6 +55,9 @@ const AdminCreateTraining = () => {
     return (
         <Layout>
             <div className="flex items-center justify-center min-h-[calc(100vh-70px)]">
+                <ContextHelper
+                    adminText="Para criar um treino, basta preencher o formulário abaixo e clicar no botão 'criar'."
+                />
                 <ToastContainer />
                 <div className="flex flex-col items-center shadow-md py-[40px] bg-white w-full max-w-[400px] rounded-[25px] px-[20px] gap-[20px]">
                     <div className="w-full flex flex-col items-start">
