@@ -5,7 +5,6 @@ import { AdminContext } from "../../context/admin";
 import AddButton from "../../components/addButton";
 import EditButton from "../../components/editButton";
 import { getTrainings } from "../../utils/training";
-import { FaTrash } from "react-icons/fa";
 import api from "@/service/api";
 import Cookies from "js-cookie";
 import { ToastContainer, toast } from "react-toastify";

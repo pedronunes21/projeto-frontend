@@ -3,11 +3,6 @@ import { useContext } from 'react'
 import { FaQuestionCircle } from "react-icons/fa";
 import * as Popover from '@radix-ui/react-popover';
 
-import {
-    HoverCard,
-    HoverCardContent,
-    HoverCardTrigger,
-} from "@/src/components/ui/hover-card"
 import { AdminContext } from "@/context/admin";
 
 export default function ContextHelper(props: {

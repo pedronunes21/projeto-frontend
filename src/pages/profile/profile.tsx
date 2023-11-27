@@ -6,7 +6,6 @@ import { AdminContext } from "../../context/admin";
 import api from "../../service/api";
 import { User, UserInvite } from "../../types/User";
 import { getUserInvites } from "../../utils/user";
-import { FaTrash } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { toast, ToastContainer } from 'react-toastify'
 

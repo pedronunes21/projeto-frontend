@@ -1,6 +1,4 @@
-import mail from "@/service/mail";
-import { User, UserInvite } from "@/types/User";
-import { createUserInvite } from "@/utils/user";
+import { User } from "@/types/User";
 import { useState, useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -18,7 +16,7 @@ interface Inputs {
 export default function UpdateProfile() {
     const { register, handleSubmit, formState: { errors }, reset } = useForm<Inputs>();
     const [loading, setLoading] = useState(false);
-    const [resError, setResError] = useState("");
+    const [resError, _] = useState("");
     const [me, setMe] = useState<User>();
 
     const onSubmit: SubmitHandler<Inputs> = async (data) => {

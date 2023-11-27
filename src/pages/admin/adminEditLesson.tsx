@@ -5,7 +5,7 @@ import api from "../../service/api";
 import { toast, ToastContainer } from "react-toastify";
 import { ButtonLoading } from "../../components/loading";
 import { Training } from "../../types/Training";
-import { getTraining, getTrainings } from "../../utils/training";
+import { getTrainings } from "../../utils/training";
 import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
 import { getLesson, minutesToHour } from "../../utils/lesson";

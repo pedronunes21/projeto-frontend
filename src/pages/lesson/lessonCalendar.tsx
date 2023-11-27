@@ -4,15 +4,11 @@ import api from "../../service/api";
 import Cookies from "js-cookie";
 import { Lesson } from "../../types/Lesson";
 import { AdminContext } from "../../context/admin";
-import AddButton from "../../components/addButton";
-import { minutesToHour } from "../../utils/lesson";
 
 import { ToastContainer } from 'react-toastify'
 import { getAppointments } from "../../utils/appointment";
 import { Appointment } from "../../types/Appointment";
 import LessonCard from "@/components/lessonCard";
-import ReportButton from "@/components/reportButton";
-import CalendarButton from "@/components/calendarButton";
 import EmblaCarousel from "@/components/embla/carousel";
 import ContextHelper from "@/components/contextHelper";
 
@@ -28,7 +24,6 @@ const WeekdayMap = {
 
 const LessonsCalendar = () => {
     const [lessons, setLessons] = useState<Lesson[]>([]);
-    const [lessonsSchedule, setLessonsSchedule] = useState<number[]>([])
     const [appointments, setAppointments] = useState<Appointment[]>([]);
 
     const isAdmin = useContext(AdminContext)
@@ -37,25 +32,6 @@ const LessonsCalendar = () => {
         getAppointments(setAppointments)
         getAllLessons()
     }, [isAdmin])
-
-    const getLessons = async () => {
-        try {
-            const res = await api.get("/today/lesson", {
-                headers: {
-                    Authorization: `Bearer ${Cookies.get("token")}`
-                }
-            })
-
-            const schedules: number[] = []
-            res.data.forEach((v: Lesson) => {
-                if (!schedules.find((s) => s === v.time)) schedules.push(v.time)
-            })
-            setLessonsSchedule(schedules)
-            setLessons(res.data);
-        } catch (err) {
-            console.log(err)
-        }
-    }
 
     const getAllLessons = async () => {
         try {
