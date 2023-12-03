@@ -118,7 +118,7 @@ export default function LessonCard(props: {
     const timeConflict = props.appointments?.find((a) => a.lesson?.time === props.lesson.time && a.lesson.weekday === props.lesson.weekday && a.lesson.id !== props.lesson.id)
 
     return (
-        <div className="relative bg-white shadow-lg px-[20px] py-[30px] rounded-[5px] max-w-[350px] w-full">
+        <div className="relative bg-white shadow-lg px-[20px] py-[30px] rounded-[5px] max-w-[350px] w-full h-full">
             {/* <ToastContainer /> */}
             <div className="pb-[20px]">
                 {props.showTime && <span>{minutesToHour(props.lesson.time)}</span>}

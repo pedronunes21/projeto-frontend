@@ -22,7 +22,7 @@ export default function ContextHelper(props: {
                 </Popover.Trigger>
 
                 <Popover.Portal>
-                    <Popover.Content className="PopoverContent border border-gray-300 rounded-[8px] shadow-lg right-0 absolute !w-[400px]" sideOffset={5}>
+                    <Popover.Content className="PopoverContent border border-gray-300 rounded-[8px] !shadow-lg right-0 absolute !w-[400px]" sideOffset={5}>
                         <div className="grid gap-4">
                             <div className="space-y-2">
                                 <h4 className="font-medium leading-none text-left">{isAdmin ? props.adminText : props.text}</h4>
