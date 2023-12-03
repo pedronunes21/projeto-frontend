@@ -84,7 +84,7 @@ const Trainigns = () => {
                                 </div>}
                             </div>
                             <div>
-                                <p className="font-medium text-black">{t.description}</p>
+                                <p className="font-medium text-black whitespace-pre-wrap">{t.description}</p>
                             </div>
                         </div>
                     ))}

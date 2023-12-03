@@ -138,7 +138,7 @@ export default function LessonCard(props: {
                     <span className="bg-orangeBackGround text-black px-[20px] py-[5px] rounded-full font-bold">{props.lesson.training.category}</span>
                 </div>
                 <div>
-                    <p className="font-medium">{props.lesson.training.description}</p>
+                    <p className="font-medium whitespace-pre-wrap">{props.lesson.training.description}</p>
                 </div>
 
             </div>
