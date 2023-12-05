@@ -3,7 +3,7 @@ import Layout from "../../components/layout"
 import { SubmitHandler, useForm } from "react-hook-form";
 import api from "../../service/api";
 import { toast, ToastContainer } from "react-toastify";
-import { ButtonLoading } from "../../components/loading";
+import { ButtonLoading, ContentLoading } from "../../components/loading";
 import { Training } from "../../types/Training";
 import { getTrainings } from "../../utils/training";
 import Cookies from "js-cookie";
@@ -21,13 +21,19 @@ const AdminListLessonUsers = () => {
     const [loading, setLoading] = useState(false);
     const [lesson, setLesson] = useState<Lesson>()
     const [_, setTrainings] = useState<Training[]>([])
+    const [pageLoading, setPageLoading] = useState(false);
 
     const params: { id: string } = useParams()
 
     useEffect(() => {
-        getLesson(params.id, setLesson)
-        getTrainings(setTrainings)
+        setPageLoading(true)
+        getData().finally(() => setPageLoading(false))
     }, [])
+
+    const getData = async () => {
+        await getLesson(params.id, setLesson)
+        await getTrainings(setTrainings)
+    }
 
     useEffect(() => {
 
@@ -77,7 +83,7 @@ const AdminListLessonUsers = () => {
 
     return (
         <Layout>
-            <div>
+            {pageLoading ? <div className="h-[calc(100vh-60px)] flex items-center justify-center"><ContentLoading /></div> : <div>
                 <ToastContainer />
                 <ContextHelper
                     adminText="Abaixo, você pode verificar todos os alunos confirmados para essa aula e marcar presença para os alunos que comparecerem."
@@ -113,7 +119,7 @@ const AdminListLessonUsers = () => {
                             </form>
                         </div>
                     </div>}
-            </div>
+            </div>}
 
         </Layout>
     )

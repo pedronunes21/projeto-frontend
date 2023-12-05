@@ -20,8 +20,8 @@ export default function InviteUser() {
 
         if (!!userInvite) {
             setLoading(true)
-
-            const link = 'http://localhost:5173/registro?invite=' + userInvite.invite
+            // http://localhost:5173
+            const link = `${window.location.origin}/registro?invite=` + userInvite.invite
 
             const body = `
             <h1 style="margin: 0;">Você foi convidado para o Box Pumpi</h1>

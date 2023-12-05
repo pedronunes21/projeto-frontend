@@ -214,7 +214,7 @@ export default function LessonCard(props: {
                             </HoverCardContent>
                         </HoverCard>
 
-                        <PopoverContent className="bg-white p-[15px] rounded-[5px] min-w-[200px] shadow-lg border border-gray-300">
+                        <PopoverContent align="end" side="top" className="bg-white p-[15px] rounded-[5px] min-w-[200px] shadow-lg border border-gray-300">
                             <span className="block mb-[20px]">Participantes</span>
                             {lessonAppointments.map((l, j) => (
                                 <div className="border-b border-orange px-[5px] mb-[2px]" key={j}>{l.user?.name}</div>

@@ -15,12 +15,15 @@ import {
     HoverCardTrigger,
 } from "@/src/components/ui/hover-card"
 import ContextHelper from "@/components/contextHelper";
+import { ContentLoading } from "@/components/loading";
 
 const Trainigns = () => {
     const [trainings, setTrainings] = useState<Training[]>([]);
+    const [pageLoading, setPageLoading] = useState(false);
     const isAdmin = useContext(AdminContext)
     useEffect(() => {
-        getTrainings(setTrainings)
+        setPageLoading(true)
+        getTrainings(setTrainings).finally(() => setPageLoading(false))
     }, [])
     async function deleteTraining(trainingId: string) {
         try {
@@ -68,7 +71,7 @@ const Trainigns = () => {
 
                     </div>}
                 </div>
-                <div className="flex gap-[20px] flex-wrap items-stretch justify-start py-[50px]">
+                {pageLoading ? <ContentLoading /> : <div className="flex gap-[20px] flex-wrap items-stretch justify-start py-[50px]">
                     {trainings.map((t, i) => (
                         <div key={i} className="bg-white shadow-lg px-[20px] pb-[30px] py-[15px] rounded-[5px] max-w-[350px] w-full">
                             <div className="flex justify-between items-center gap-[20px] py-[10px]">
@@ -88,7 +91,7 @@ const Trainigns = () => {
                             </div>
                         </div>
                     ))}
-                </div>
+                </div>}
             </div>
         </Layout>
     )

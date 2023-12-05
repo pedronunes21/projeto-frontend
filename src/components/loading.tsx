@@ -14,4 +14,12 @@ const ScreenLoading = () => {
     )
 }
 
-export { ButtonLoading, ScreenLoading }
+const ContentLoading = () => {
+    return (
+        <div className='w-full flex items-center justify-center'>
+            <Loading type='spin' color='#ef8200' width={40} height={40} />
+        </div>
+    )
+}
+
+export { ButtonLoading, ScreenLoading, ContentLoading }

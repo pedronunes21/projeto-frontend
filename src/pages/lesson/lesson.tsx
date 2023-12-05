@@ -21,20 +21,27 @@ import {
     HoverCardTrigger,
 } from "@/src/components/ui/hover-card"
 import ContextHelper from "@/components/contextHelper";
+import { ContentLoading } from "@/components/loading";
 
 
 const Lessons = () => {
     const [lessons, setLessons] = useState<Lesson[]>([]);
     const [lessonsSchedule, setLessonsSchedule] = useState<number[]>([])
     const [appointments, setAppointments] = useState<Appointment[]>([]);
+    const [pageLoading, setPageLoading] = useState(false);
 
     const isAdmin = useContext(AdminContext)
 
     useEffect(() => {
-        getAppointments(setAppointments)
-        if (isAdmin) getAllLessons()
-        else getLessons()
+        setPageLoading(true)
+        getData().finally(() => setPageLoading(false))
     }, [isAdmin])
+
+    const getData = async () => {
+        await getAppointments(setAppointments)
+        if (isAdmin) await getAllLessons()
+        else await getLessons()
+    }
 
     const getLessons = async () => {
         try {
@@ -115,7 +122,7 @@ const Lessons = () => {
                         </div>
                     }
                 </div>
-                <div className="">
+                {pageLoading ? <ContentLoading /> : <div>
                     {!isAdmin ?
 
                         <>
@@ -191,7 +198,7 @@ const Lessons = () => {
                             })}
                         </>
                     }
-                </div>
+                </div>}
             </div>
         </Layout>
     )
